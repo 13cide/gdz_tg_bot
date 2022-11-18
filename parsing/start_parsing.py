@@ -27,7 +27,7 @@ class Parsing:
         self.driver = webdriver.Chrome(executable_path='chromedriver',
                                   chrome_options=self.chrome_options)
 
-        # driver.set_window_size(1500, 1000)
+        self.driver.set_window_size(1500, 1000)
         self.wait_start = WebDriverWait(self.driver, 7)
         self.wait_start_long = WebDriverWait(self.driver, 30)
         self.action = ActionChains(self.driver)
