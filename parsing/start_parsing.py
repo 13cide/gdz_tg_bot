@@ -33,7 +33,7 @@ class Parsing:
         self.wait_start_long = WebDriverWait(self.driver, 30)
         self.action = ActionChains(self.driver)
 
-    def start_parsing(self, login, password):
+    def start_parsing(self, login, password, name):
         try:
             self.driver.get(url='http://www.ymk.ru/')
             self.driver.implicitly_wait(2)
@@ -59,17 +59,40 @@ class Parsing:
             marks = soup.find_all('a', {'class': 'diary_link'})
             i = 0
             for mark in marks:
-                print(mark.text)
                 if mark.text.strip().isdigit():
                     try:
                         marks_links = self.driver.find_elements(By.CLASS_NAME, 'diary_link')
                         mark_link = marks_links[i]
                         mark_link.click()
-                        time.sleep(2)
+
+                        soup_tests = BeautifulSoup(self.driver.page_source, 'lxml')
+                        tests = soup_tests.find_all('tr', {'class': 'content'})
+
+                        subject = soup_tests.find('td', {'class': 'content'}).find_all('b')[2].text
+                        test_title = soup_tests.find('td', {'class': 'content_title'}).text
+
+                        i1 = 0
+                        for test in tests:
+                            try:
+                                tests_link = self.driver.find_elements(By.CLASS_NAME, 'content')[2:]
+                                test_link = tests_link[i1]
+                                test_link.click()
+
+                                time.sleep(2)
+                                self.driver.find_element(By.ID, 'frmTask').screenshot(f'screnshots\\{name}_{subject}_{test_title}_{i}.png')
+
+                                self.driver.back()
+                            except:
+                                pass
+                            i1+=1
+
                         self.driver.back()
                     except:
                         pass
                 i+=1
+
+
+
         except NoSuchElementException as ex:
             print(ex)
         finally:

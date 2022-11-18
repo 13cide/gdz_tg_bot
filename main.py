@@ -15,9 +15,10 @@ def main():
 
     login = aleksey.login
     password = aleksey.password
+    name = aleksey.name
 
     parsing = start_parsing.Parsing()
-    parsing.start_parsing(login, password)
+    parsing.start_parsing(login, password, name)
     solve()
 
 
