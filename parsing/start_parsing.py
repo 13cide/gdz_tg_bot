@@ -87,7 +87,6 @@ class Parsing:
                                 self.driver.back()
                             i1+=1
 
-                        self.driver.back()
                     except:
                         pass
                     finally:
