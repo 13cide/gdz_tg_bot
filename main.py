@@ -4,6 +4,7 @@ import pickle
 from parsing import start_parsing
 from config import aleksey
 
+
 def solve():
     with open('Solved_tests.txt', 'wb') as f:
         pickle.dump(config.solved, f)

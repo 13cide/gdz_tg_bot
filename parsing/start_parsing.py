@@ -12,10 +12,9 @@ from selenium.webdriver.common.alert import Alert
 
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
-
-
 from fake_useragent import UserAgent
-import time
+
+from convert import make_pdf
 
 class Parsing:
     def __init__(self):
@@ -68,8 +67,8 @@ class Parsing:
                         soup_tests = BeautifulSoup(self.driver.page_source, 'lxml')
                         tests = soup_tests.find_all('tr', {'class': 'content'})
 
-                        subject = soup_tests.find('td', {'class': 'content'}).find_all('b')[2].text
-                        test_title = soup_tests.find('td', {'class': 'content_title'}).text
+                        subject = soup_tests.find('td', {'class': 'content'}).find_all('b')[2].text.replace(' ', '_')
+                        test_title = soup_tests.find('td', {'class': 'content_title'}).text.replace(' ', '_')
 
                         i1 = 0
                         for test in tests:
@@ -79,7 +78,8 @@ class Parsing:
                                 test_link.click()
 
                                 time.sleep(2)
-                                self.driver.find_element(By.ID, 'frmTask').screenshot(f'screnshots\\{name}_{subject}_{test_title}_{i}.png')
+
+                                make_pdf(url=self.driver.current_url, output_path=f'pdf\\{name}_{subject}_{test_title}_{i1}.pdf')
 
                                 self.driver.back()
                             except:
