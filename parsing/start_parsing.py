@@ -68,7 +68,7 @@ class Parsing:
                         tests = soup_tests.find_all('tr', {'class': 'content'})
 
                         subject = soup_tests.find('td', {'class': 'content'}).find_all('b')[2].text.replace(' ', '_')
-                        test_title = soup_tests.find('td', {'class': 'content_title'}).text.replace(' ', '_')
+                        test_title = soup_tests.find('td', {'class': 'content_title'}).text.replace(' ', '_').replace('№', '_')
 
                         i1 = 0
                         for test in tests:
@@ -79,16 +79,19 @@ class Parsing:
 
                                 time.sleep(2)
 
-                                make_pdf(url=self.driver.current_url, output_path=f'pdf\\{name}_{subject}_{test_title}_{i1}.pdf')
+                                self.driver.find_element(By.ID, 'frmTask').screenshot(f'pdf\\{name.replace(" ", "_")}_{i1}.png')
 
-                                self.driver.back()
                             except:
                                 pass
+                            finally:
+                                self.driver.back()
                             i1+=1
 
                         self.driver.back()
                     except:
                         pass
+                    finally:
+                        self.driver.back()
                 i+=1
 
 

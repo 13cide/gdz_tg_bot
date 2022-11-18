@@ -6,4 +6,4 @@ config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
 
 
 def make_pdf(url, path):
-    pdfkit.from_url(url=url, output_path=path, configuration=config)
+    pdfkit.from_string(input=url, output_path=path, configuration=config)
