@@ -82,7 +82,7 @@ class Parsing:
                             ' ', '')
                         challenge = f'{name.replace(" ", "_")}_{subject}_{test_title}'
                         if challenge in config.solved:
-                            pass
+                            continue
                     except:
                         i += 1
                     i1 = 0
