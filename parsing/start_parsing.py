@@ -67,8 +67,10 @@ class Parsing:
                         soup_tests = BeautifulSoup(self.driver.page_source, 'lxml')
                         tests = soup_tests.find_all('tr', {'class': 'content'})
 
-                        subject = soup_tests.find('td', {'class': 'content'}).find_all('b')[2].text.replace(' ', '_')
-                        test_title = soup_tests.find('td', {'class': 'content_title'}).text.replace(' ', '_').replace('№', '_')
+                        subject = soup_tests.find('td', {'class': 'content'}).text.split('\n')[3].strip().replace('Предмет : ', '').replace(' ', '_')
+                        test_title = soup_tests.find('td', {'class': 'content_title'}).text.strip().replace('№', '_').replace(' ', '')
+
+
 
                         i1 = 0
                         for test in tests:
@@ -79,7 +81,7 @@ class Parsing:
 
                                 time.sleep(2)
 
-                                self.driver.find_element(By.ID, 'frmTask').screenshot(f'pdf\\{name.replace(" ", "_")}_{i1}.png')
+                                self.driver.find_element(By.ID, 'frmTask').screenshot(f'pdf\\{name.replace(" ", "_")}_{subject}_{test_title}_{i1}.png')
 
                             except:
                                 pass
