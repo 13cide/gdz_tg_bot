@@ -80,15 +80,19 @@ class Parsing:
                         test_title = soup_tests.find('td', {'class': 'content_title'}).text.strip().replace('№',
                                                                                                             '_').replace(
                             ' ', '')
-                        challenge = f'{name.replace(" ", "_")}_{subject}_{test_title}'
-                        if challenge in config.solved:
-                            continue
                     except:
                         i += 1
-                    i1 = 0
-                    i1_test = 1
-                    imgs = []
+                        i1 = 0
+                        i1_test = 1
+                        imgs = []
 
+
+                    challenge = f'{name.replace(" ", "_")}_{subject}_{test_title}'
+
+                    if challenge in config.solved:
+                        i += 1
+                        self.driver.back()
+                        continue
 
                     for test in tests:
                         try:
