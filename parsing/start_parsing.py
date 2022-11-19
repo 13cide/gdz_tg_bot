@@ -97,6 +97,6 @@ class Parsing:
         except NoSuchElementException as ex:
             print(ex)
         finally:
-            time.sleep(10000)
+            print('Конец')
             self.driver.close()
             self.driver.quit()
