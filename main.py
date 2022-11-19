@@ -7,13 +7,14 @@ from config import aleksey
 
 def solve():
     with open('Solved_tests.txt', 'wb') as f:
+        config.solved = list(set(config.solved))
         pickle.dump(config.solved, f)
 
 
 def main():
-    #with open('Solved_tests.txt', 'rb') as f:
-     #   solved = pickle.load(f)
-
+    with open('Solved_tests.txt', 'rb') as f:
+        config.solved = pickle.load(f)
+    print(config.solved)
     login = aleksey.login
     password = aleksey.password
     name = aleksey.name

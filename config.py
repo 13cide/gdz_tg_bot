@@ -21,6 +21,7 @@ artemiy = Student("Artemiy", "", "")
 
 students = [aleksey, meliha, georgiy, artemiy]
 
-with open('Solved_tests.txt', 'rb') as f:
-    solved = pickle.load(f)
+solved = []
 
+# with open('Solved_tests.txt', 'wb') as f:
+#     pickle.dump(solved, f)

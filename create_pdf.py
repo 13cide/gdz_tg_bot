@@ -11,4 +11,5 @@ def create_pdf(images, out):
     pdf.close()
     a = fitz.open(f"trash/{out}_tmp.pdf")
     a.delete_page(0)
-    a.save(f"{out}.pdf")
+    a.save(f"pdf/{out}.pdf")
+    print(f"pdf/{out}.pdf")
