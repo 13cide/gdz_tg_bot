@@ -14,6 +14,8 @@ from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
+
+
 class Parsing:
     def __init__(self):
         self.useragent = UserAgent()
