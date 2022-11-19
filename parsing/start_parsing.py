@@ -14,20 +14,19 @@ from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-from convert import make_pdf
 
 class Parsing:
     def __init__(self):
         self.useragent = UserAgent()
 
         self.chrome_options = Options()
-        # self.chrome_options.add_argument("--headless")
+        self.chrome_options.add_argument("--headless")
         self.chrome_options.add_argument(f'user-agent={self.useragent.random}')
 
         self.driver = webdriver.Chrome(executable_path='chromedriver',
-                                  chrome_options=self.chrome_options)
+                                       chrome_options=self.chrome_options)
 
-        self.driver.set_window_size(1500, 1000)
+        self.driver.set_window_size(1500, 2000)
         self.wait_start = WebDriverWait(self.driver, 7)
         self.wait_start_long = WebDriverWait(self.driver, 30)
         self.action = ActionChains(self.driver)
@@ -68,7 +67,8 @@ class Parsing:
                         tests = soup_tests.find_all('tr', {'class': 'content'})
 
                         subject = soup_tests.find('td', {'class': 'content'}).find_all('b')[2].text.replace(' ', '_')
-                        test_title = soup_tests.find('td', {'class': 'content_title'}).text.replace(' ', '_').replace('№', '_')
+                        test_title = soup_tests.find('td', {'class': 'content_title'}).text.replace(' ', '_').replace(
+                            '№', '_')
 
                         i1 = 0
                         for test in tests:
@@ -79,19 +79,20 @@ class Parsing:
 
                                 time.sleep(2)
 
-                                self.driver.find_element(By.ID, 'frmTask').screenshot(f'pdf\\{name.replace(" ", "_")}_{i1}.png')
+                                self.driver.find_element(By.ID, 'frmTask').screenshot(
+                                    f'pdf\\{name.replace(" ", "_")}_{i1}.png')
 
                             except:
                                 pass
                             finally:
                                 self.driver.back()
-                            i1+=1
+                            i1 += 1
 
                     except:
                         pass
                     finally:
                         self.driver.back()
-                i+=1
+                i += 1
 
 
 
