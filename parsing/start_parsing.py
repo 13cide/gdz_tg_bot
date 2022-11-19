@@ -84,7 +84,7 @@ class Parsing:
                             test_link.click()
 
                             self.driver.find_element(By.ID, 'frmTask').screenshot(f'screenshot\\{name.replace(" ", "_")}_{subject}_{test_title}_задание_{i1_test}.png')
-                            i_test += 1
+                            i1_test += 1
 
                             self.driver.back()
                         except:
