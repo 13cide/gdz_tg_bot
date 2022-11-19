@@ -12,6 +12,3 @@ def create_pdf(images, out):
     a = fitz.open(f"trash/{out}_tmp.pdf")
     a.delete_page(0)
     a.save(f"{out}.pdf")
-
-
-create_pdf(["pdf/Aleksey_0.png", "pdf/Aleksey_1.png", "pdf/Aleksey_2.png"], "test")
