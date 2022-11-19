@@ -86,7 +86,6 @@ class Parsing:
                         i1_test = 1
                         imgs = []
 
-
                     challenge = f'{name.replace(" ", "_")}_{subject}_{test_title}'
 
                     if challenge in config.solved:
