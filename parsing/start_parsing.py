@@ -56,6 +56,7 @@ class Parsing:
             soup = BeautifulSoup(self.driver.page_source, 'lxml')
 
             marks = soup.find_all('a', {'class': 'diary_link'})
+
             i = 0
             for mark in marks:
                 if mark.text.strip().isdigit():
@@ -63,37 +64,33 @@ class Parsing:
                         marks_links = self.driver.find_elements(By.CLASS_NAME, 'diary_link')
                         mark_link = marks_links[i]
                         mark_link.click()
+                        time.sleep(1)
 
                         soup_tests = BeautifulSoup(self.driver.page_source, 'lxml')
                         tests = soup_tests.find_all('tr', {'class': 'content'})
 
                         subject = soup_tests.find('td', {'class': 'content'}).text.split('\n')[3].strip().replace('Предмет : ', '').replace(' ', '_')
                         test_title = soup_tests.find('td', {'class': 'content_title'}).text.strip().replace('№', '_').replace(' ', '')
-
-
-
-                        i1 = 0
-                        for test in tests:
-                            try:
-                                tests_link = self.driver.find_elements(By.CLASS_NAME, 'content')[2:]
-                                test_link = tests_link[i1]
-                                test_link.click()
-
-                                time.sleep(2)
-
-                                self.driver.find_element(By.ID, 'frmTask').screenshot(f'pdf\\{name.replace(" ", "_")}_{subject}_{test_title}_{i1}.png')
-
-                            except:
-                                pass
-                            finally:
-                                self.driver.back()
-                            i1+=1
-
                     except:
+                        i += 1
                         pass
-                    finally:
-                        self.driver.back()
+                    i1 = 0
+                    for test in tests:
+                        try:
+                            tests_link = self.driver.find_elements(By.CLASS_NAME, 'content')[2:]
+                            test_link = tests_link[i1]
+                            test_link.click()
+
+                            self.driver.find_element(By.ID, 'frmTask').screenshot(f'screenshot\\{name.replace(" ", "_")}_{subject}_{test_title}_задание_{i1+1}.png')
+
+                            self.driver.back()
+                        except:
+                            i1 += 1
+
+                        i1+=1
+                    self.driver.back()
                 i+=1
+
 
 
 
