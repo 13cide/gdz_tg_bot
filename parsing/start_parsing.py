@@ -58,6 +58,7 @@ class Parsing:
             marks = soup.find_all('a', {'class': 'diary_link'})
 
             i = 0
+
             for mark in marks:
                 if mark.text.strip().isdigit():
                     try:
@@ -75,13 +76,15 @@ class Parsing:
                         i += 1
                         pass
                     i1 = 0
+                    i1_test = 1
                     for test in tests:
                         try:
                             tests_link = self.driver.find_elements(By.CLASS_NAME, 'content')[2:]
                             test_link = tests_link[i1]
                             test_link.click()
 
-                            self.driver.find_element(By.ID, 'frmTask').screenshot(f'screenshot\\{name.replace(" ", "_")}_{subject}_{test_title}_задание_{i1+1}.png')
+                            self.driver.find_element(By.ID, 'frmTask').screenshot(f'screenshot\\{name.replace(" ", "_")}_{subject}_{test_title}_задание_{i1_test}.png')
+                            i_test += 1
 
                             self.driver.back()
                         except:
@@ -90,9 +93,6 @@ class Parsing:
                         i1+=1
                     self.driver.back()
                 i+=1
-
-
-
 
         except NoSuchElementException as ex:
             print(ex)
