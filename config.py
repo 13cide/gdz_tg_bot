@@ -25,3 +25,8 @@ solved = []
 
 # with open('Solved_tests.txt', 'wb') as f:
 #     pickle.dump(solved, f)
+
+
+tg_token = "5604783662:AAFVXbNTPmjBwCqgUxx7qMb1fP29LzWsOxs"
+
+chat_id = -893219349

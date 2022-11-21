@@ -1,16 +1,12 @@
-import os
 import pickle
 import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.alert import Alert
+
 
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
@@ -19,6 +15,7 @@ from fake_useragent import UserAgent
 import config
 from create_pdf import create_pdf
 from create_zip import create_zip
+from send_tg_message import send_tg
 
 
 class Parsing:
@@ -82,13 +79,14 @@ class Parsing:
                             ' ', '')
                         challenge = f'{name.replace(" ", "_")}_{subject}_{test_title}'
                         if challenge in config.solved:
+                            self.driver.back()
+                            i += 1
                             continue
                     except:
                         i += 1
                     i1 = 0
                     i1_test = 1
                     imgs = []
-
 
                     for test in tests:
                         try:
@@ -110,6 +108,7 @@ class Parsing:
                     create_pdf(imgs, challenge)
                     create_zip(imgs, challenge)
                     config.solved.append(challenge)
+                    send_tg(challenge)
                     with open('Solved_tests.txt', 'wb') as f:
                         pickle.dump(config.solved, f)
                     self.driver.back()
